@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javaboy.pagoda.ordermaster.mapper.AllocationInventoryMapper">
+
+
+    <select id="getInventoryList" resultType="org.javaboy.pagoda.ordermaster.vo.AllocationVO">
+
+        SELECT product_code,
+        product_name,
+        product_unit,
+        status,
+        GROUP_CONCAT(io_type SEPARATOR ',') AS ioTypeList,
+        GROUP_CONCAT(quantity SEPARATOR ',') AS quantityList,
+        sum(quantity) as totalQuantity
+        FROM pagoda_allocation_inventory
+        where del_flag =0 and created_time>curdate()
+        <if test="productCode != null and productCode != ''">
+            and product_code = #{productCode}
+        </if>
+        GROUP BY product_code
+
+
+    </select>
+    <select id="getStoreOrderList" resultType="org.javaboy.pagoda.ordermaster.vo.StoreOrderVO">
+
+        SELECT pdi.allocation_id,
+               pdi.product_code       AS goodsCode,
+               pgi.goods_name         AS goodsName,
+               pgi.batch_quantity     AS batchQuantity,
+               pgi.production_place   AS productionPlace,
+               pgi.delivery_cycle     AS deliveryCycle,
+               pgi.supply_trend       AS supplyTrend,
+               pri.availableQty       AS availableQty,
+               pri.stockSellRatio     AS stockSellRatio,
+               pdi.quantity           as quantity,
+               pgi.sales_unit         as salesUnit,
+               gsi.distribution_price as distributionPrice,
+               pgi.fruit_label,
+               pdi.updated_time
+
+        FROM pagoda_distribution_inventory pdi
+                 LEFT JOIN
+             pagoda_goods_info pgi ON pdi.product_code = pgi.goods_code
+                 LEFT JOIN
+             pagoda_realtime_inventory PARTITION (p2023) pri ON pdi.product_code = pri.goodsCode
+                 AND DATE(pri.date) = CURRENT_DATE
+                 AND pri.depotCode = #{deptCode}
+                 LEFT JOIN
+             goods_store_info gsi ON pdi.product_code = gsi.goods_id and gsi.store_id = #{deptCode}
+        WHERE pdi.del_flag = 0
+          AND pgi.type = 1
+          AND pgi.fruit_label = 3
+          AND pdi.type = 2
+          AND pdi.updated_time > curdate()
+
+
+
+    </select>
+</mapper>

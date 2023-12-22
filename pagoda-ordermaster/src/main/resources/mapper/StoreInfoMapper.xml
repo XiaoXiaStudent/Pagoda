@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javaboy.pagoda.ordermaster.mapper.StoreInfoMapper">
+
+
+    <select id="storeinfoByPage" resultType="org.javaboy.pagoda.ordermaster.entity.StoreInfo">
+
+        select *
+        from pagoda_store_info
+    </select>
+    <select id="getStores" resultType="org.javaboy.pagoda.ordermaster.entity.StoreInfo">
+        select store_code, store_name
+        from ruoyi.pagoda_store_info
+        <where>
+            ${params.dataStoreScope}
+        </where>
+    </select>
+</mapper>

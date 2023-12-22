@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javaboy.pagoda.ordermaster.mapper.DistributionInventoryMapper">
+
+
+    <select id="getMustFruits" resultType="org.javaboy.pagoda.ordermaster.vo.MustFruitsVO">
+
+        SELECT di.product_code,
+               gi.goods_name,
+               gi.sales_unit,
+               gi.related_goods,
+               di.quantity,
+               gi.fruit_label,
+               gsi.distribution_price,
+               gsi.min_shelf_quantity
+
+        FROM pagoda_distribution_inventory di
+                 LEFT JOIN pagoda_goods_info gi ON di.product_code = gi.goods_code
+                 LEFT JOIN goods_store_info gsi ON gi.goods_code = gsi.goods_id and gsi.store_id = #{deptCode}
+        WHERE di.type = 2
+          AND gi.fruit_label IN (1, 2)
+        order by related_goods desc
+
+    </select>
+    <select id="getAssginmentlist" resultType="org.javaboy.pagoda.ordermaster.vo.AssignmentVO">
+        SELECT
+               pdi.product_code  AS productCode,
+               pgi.goods_name    AS goodsName,
+               pdi.type          AS type,
+               pdi.quantity      AS quantity
+        FROM pagoda_distribution_inventory pdi
+                 LEFT JOIN
+             pagoda_goods_info pgi ON pdi.product_code = pgi.goods_code
+        WHERE pdi.del_flag = 0 and pdi.type=1
+
+    </select>
+</mapper>

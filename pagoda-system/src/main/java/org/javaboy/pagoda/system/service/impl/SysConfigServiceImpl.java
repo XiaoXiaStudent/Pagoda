@@ -96,6 +96,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
          * @return 参数配置集合
          */
         @Override
+        @DataSource(DataSourceType.MASTER)
         public List<SysConfig> selectConfigList(SysConfig config) {
                 return configMapper.selectConfigList(config);
         }

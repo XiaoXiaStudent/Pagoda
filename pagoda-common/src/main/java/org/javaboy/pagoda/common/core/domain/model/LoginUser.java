@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 import org.javaboy.pagoda.common.config.SimpleGrantedAuthorityDeserializer;
 import org.javaboy.pagoda.common.core.domain.entity.SysUser;
@@ -160,5 +159,6 @@ public class LoginUser implements UserDetails {
 
                 return new ArrayList<>();
         }
+
 
 }

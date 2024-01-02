@@ -172,7 +172,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
                 log.info("handleOrder线程启动"); // 添加日志记录
 
-                while (true) {
+                int i = 0;
+                while (i > 0) {
+
                         try {
                                 // 读取指定队列中的消息，从最新的开始读取
                                 List<MapRecord<String, Object, Object>> messages = stringRedisTemplate.opsForStream()
@@ -185,8 +187,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                                 if (messages == null || messages.isEmpty()) {
                                         //如果没有数据 说明没有消息继续下一次循环
                                         continue;
-
-
 
                                 }
 

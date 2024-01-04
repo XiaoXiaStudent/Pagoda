@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.javaboy.pagoda.common.core.domain.BaseEntity;
@@ -17,8 +19,7 @@ import org.javaboy.pagoda.common.core.domain.BaseEntity;
  * @author javaboy
  * @since 2023-04-21
  */
-@Getter
-@Setter
+@Data
 @TableName("pagoda_store_info")
 public class StoreInfo  extends BaseEntity implements Serializable {
 

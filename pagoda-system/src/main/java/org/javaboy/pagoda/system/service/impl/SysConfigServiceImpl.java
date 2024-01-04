@@ -46,7 +46,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
          * @return 参数配置信息
          */
         @Override
-        @DataSource(DataSourceType.MASTER)
+        @DataSource(DataSourceType.master)
         public SysConfig selectConfigById(Long configId) {
                 SysConfig config = new SysConfig();
                 config.setConfigId(configId);
@@ -96,7 +96,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
          * @return 参数配置集合
          */
         @Override
-        @DataSource(DataSourceType.MASTER)
+        @DataSource(DataSourceType.master)
         public List<SysConfig> selectConfigList(SysConfig config) {
                 return configMapper.selectConfigList(config);
         }

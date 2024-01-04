@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class DynamicDataSource extends AbstractRoutingDataSource {
         public DynamicDataSource(LoadDataSource loadDataSource) {
                 Map<String, DataSource> allDs = loadDataSource.loadDataSource();
-                super.setDefaultTargetDataSource(allDs.get(DataSourceType.MASTER));
+                super.setDefaultTargetDataSource(allDs.get(DataSourceType.master.name()));
                 super.setTargetDataSources(new HashMap<>(allDs));
                 super.afterPropertiesSet();
         }

@@ -197,6 +197,13 @@
             </dependency>
 
 
+            <dependency>
+            <groupId>org.javaboy</groupId>
+            <artifactId>pagoda-datadashboard</artifactId>
+            <version>${pagoda.version}</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
@@ -207,6 +214,7 @@
         <module>pagoda-common</module>
         <module>pagoda-ordermaster</module>
         <module>pagoda-media</module>
+        <module>pagoda-datadashboard</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,6 +1,7 @@
 package org.javaboy.pagoda.framework.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
@@ -13,6 +14,9 @@ public class JacksonRedisSerializer<T> implements RedisSerializer<T> {
 
         public JacksonRedisSerializer(Class<T> clazz) {
                 this.clazz = clazz;
+                this.objectMapper = new ObjectMapper();
+                // 注册JavaTimeModule来处理Java 8日期和时间API
+                this.objectMapper.registerModule(new JavaTimeModule());
         }
 
         @Override

@@ -35,6 +35,9 @@ public class DataSourceAspect {
 
         @Around("dsPointCut()")
         public Object around(ProceedingJoinPoint point) throws Throwable {
+
+                logger.info("Attempting to switch data source...");
+
                 DataSource dataSource = getDataSource(point);
 
                 if (StringUtils.isNotNull(dataSource)) {

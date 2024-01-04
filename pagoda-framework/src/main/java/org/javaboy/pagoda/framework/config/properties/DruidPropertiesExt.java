@@ -1,6 +1,7 @@
 package org.javaboy.pagoda.framework.config.properties;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -9,51 +10,39 @@ import java.util.Map;
 
 @Configuration
 @ConfigurationProperties( prefix = "spring.datasource")
+@Data
 public class DruidPropertiesExt {
-        @Value("${spring.datasource.druid.initialSize}")
         private int initialSize;
 
-        @Value("${spring.datasource.druid.minIdle}")
         private int minIdle;
 
-        @Value("${spring.datasource.druid.maxActive}")
         private int maxActive;
 
-        @Value("${spring.datasource.druid.maxWait}")
         private int maxWait;
 
-        @Value("${spring.datasource.druid.timeBetweenEvictionRunsMillis}")
         private int timeBetweenEvictionRunsMillis;
 
-        @Value("${spring.datasource.druid.minEvictableIdleTimeMillis}")
         private int minEvictableIdleTimeMillis;
 
-        @Value("${spring.datasource.druid.maxEvictableIdleTimeMillis}")
         private int maxEvictableIdleTimeMillis;
 
-        @Value("${spring.datasource.druid.validationQuery}")
         private String validationQuery;
 
-        @Value("${spring.datasource.druid.testWhileIdle}")
         private boolean testWhileIdle;
 
-        @Value("${spring.datasource.druid.testOnBorrow}")
         private boolean testOnBorrow;
 
-        @Value("${spring.datasource.druid.testOnReturn}")
         private boolean testOnReturn;
 
-        private Map<String, Map<String, String>> ds;
+        private String driverClassName;
 
-        public Map<String, Map<String, String>> getDs() {
-                return ds;
-        }
+        private String type;
 
-        public void setDs(Map<String, Map<String, String>> ds) {
-                this.ds = ds;
-        }
+        private Map<String, Map<String, String>> druid;
 
         public DruidDataSource dataSource(DruidDataSource datasource) {
+                datasource.setDriverClassName(driverClassName);
+                datasource.setDbType(type);
 
                 /** 配置初始化大小、最小、最大 */
                 datasource.setInitialSize(initialSize);
@@ -82,4 +71,8 @@ public class DruidPropertiesExt {
                 datasource.setTestOnReturn(testOnReturn);
                 return datasource;
         }
+
+
+
+
 }

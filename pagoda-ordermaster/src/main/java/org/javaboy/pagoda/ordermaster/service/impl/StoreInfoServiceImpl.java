@@ -1,7 +1,9 @@
 package org.javaboy.pagoda.ordermaster.service.impl;
 
 import org.javaboy.pagoda.common.annotation.DataScope;
+import org.javaboy.pagoda.common.annotation.DataSource;
 import org.javaboy.pagoda.common.annotation.DataStoreScope;
+import org.javaboy.pagoda.common.enums.DataSourceType;
 import org.javaboy.pagoda.ordermaster.entity.StoreInfo;
 import org.javaboy.pagoda.ordermaster.mapper.StoreInfoMapper;
 import org.javaboy.pagoda.ordermaster.service.IStoreInfoService;
@@ -35,6 +37,12 @@ public class StoreInfoServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo
         @DataStoreScope
         public List<StoreInfo> getStores(StoreInfo storeInfo) {
                 return storeInfoMapper.getStores(storeInfo);
+        }
+
+        @Override
+        @DataSource(DataSourceType.master)
+        public List<StoreInfo> getStoresByDataSource() {
+                return storeInfoMapper.selectList(null);
         }
 
 }

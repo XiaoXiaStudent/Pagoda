@@ -18,4 +18,6 @@ public interface IStoreInfoService extends IService<StoreInfo> {
         List<StoreInfo> storeinfoByPage(StoreInfo storeInfo);
 
         List<StoreInfo> getStores(StoreInfo storeInfo);
+
+        List<StoreInfo> getStoresByDataSource();
 }

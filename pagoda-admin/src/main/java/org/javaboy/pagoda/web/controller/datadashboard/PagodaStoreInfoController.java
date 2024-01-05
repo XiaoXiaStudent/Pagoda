@@ -53,4 +53,23 @@ public class PagodaStoreInfoController {
         }
 
 
+        @GetMapping("/store")
+        public AjaxResult store(String storeCode) {
+                return pagodaStoreInfoService.getStoreByCode(storeCode);
+        }
+
+        @PreAuthorize("hasPermissions('pagoda:storedata:edit')")
+        @Log(title = "更新门店信息", businessType = BusinessType.UPDATE)
+        @PutMapping("/updateStore")
+        public AjaxResult updateStore(@RequestBody PagodaStoreInfo pagodaStoreInfo) {
+                return pagodaStoreInfoService.updateStore(pagodaStoreInfo);
+        }
+
+
+
+        @PostMapping("/storeByQueryParams/{storeCodes}")
+        public AjaxResult getStoreByQueryParams(@PathVariable Long[] storeCodes) {
+                return pagodaStoreInfoService.getStoreByQueryParams(storeCodes);
+        }
+
 }
